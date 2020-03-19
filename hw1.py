@@ -29,7 +29,7 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    result = confirmed_cases.loc[df["Country/Region"]=="Poland"][f"{month}/{day}/{str(year)[-2:]}"].values[0]
+    result = confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][f"{month}/{day}/{str(year)[-2:]}"].values[0]
         return(result)
 
 
