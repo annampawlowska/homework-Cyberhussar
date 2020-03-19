@@ -10,7 +10,7 @@ When downloading data it's better to do it in a global scope instead of a functi
 This speeds up the tests significantly
 """
 confirmed_cases = pd.read_csv(CONFIRMED_CASES_URL, error_bad_lines=False)
-
+df=confirmed_cases
 
 def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
@@ -29,7 +29,11 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+    if day>0 and month>0: 
+        result = df.loc[df["Country/Region"]=="Poland"][f"{month}/{day}/{str(year)[-2:]}"].values[0]
+        return(result)
+    else:
+        raise ValueError("Wrong Date !")
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
