@@ -44,9 +44,9 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     :return: A list of strings with the names of the coutires
     """
 
-    conf_by_date=confirmed_cases[["Province/State", "Country/Region", f"{month}/{day}/{year%100}"]].groupby("Country/Region").sum().sort_values(by=f"{month}/{day}/{year%100}",ascending=False)
-    countries=conf_by_date.index[0:5].tolist()
-    return countries
+    date=f"{month}/{day}/{year-2000}"
+    countries=confirmed_cases.groupby("Country/Region").sum().sort_values(by=date, ascending=True).tail(5)
+    return countries.index.values[::-1].tolist()s
 
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
