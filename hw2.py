@@ -26,6 +26,7 @@ def format_date(date: datetime.date):
     else:
         return date.strftime('%-m/%-d/%y')
 
+      
 
 def countries_with_no_deaths_count(date: datetime.date) -> int:
     """
