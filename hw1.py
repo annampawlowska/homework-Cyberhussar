@@ -66,4 +66,4 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     
     today=f"{month}/{day}/{year-2000}"
     yesterday= (datetime.date(year, month, day)- datetime.timedelta(1)).strftime('%#m/%#d/%y')
-    return len(confirmed_cases[confirmed_cases[today]-confirmed_cases[yesterday]!=0].index)
+    return sum(confirmed_cases[today].values-confirmed_cases[yesterday].values!=0)
