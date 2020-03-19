@@ -30,8 +30,8 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     
     # Your code goes here (remove pass)
    
-    pc=confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][f"{month}/{day}/{year%100}"].values[0]
-    return(pc)
+   result = confirmed_cases.loc[df["Country/Region"]=="Poland"][f"{month}/{day}/{str(year)[-2:]}"].values[0]
+   return(result)
   
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     """
