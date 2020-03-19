@@ -64,6 +64,6 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     :return: Number of countries/regions where the count has not changed in a day
     """
     
-    today=f"{month}/{day}/{(year%100}"
+    today=f"{month}/{day}/{year%100}"
     yesterday= (datetime.date(year, month, day)- datetime.timedelta(1)).strftime('%#m/%#d/%y')
     return len(confirmed_cases[confirmed_cases[today]-confirmed_cases[yesterday]!=0].index)
