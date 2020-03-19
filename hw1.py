@@ -63,6 +63,7 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     :param year: Month to get the countries for as an integer indexed from 1
     :return: Number of countries/regions where the count has not changed in a day
     """
+    import datetime
     
     today=f"{month}/{day}/{year-2000}"
     yesterday= (datetime.date(year, month, day)- datetime.timedelta(1)).strftime('%#m/%#d/%y')
