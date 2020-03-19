@@ -1,5 +1,5 @@
 from typing import List
-
+import datetime
 import pandas as pd
 
 CONFIRMED_CASES_URL = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
@@ -29,7 +29,7 @@ def poland_cases_by_date(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+    return confirmed_cases.loc[confirmed_cases["Country/Region"]=="Poland"][f"{month}/{day}/{year-2020}"].values[0]
 
 
 def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
@@ -49,7 +49,9 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     """
 
     # Your code goes here (remove pass)
-    pass
+    date=f"{month}/{day}/{year-2000}"
+    countries=confirmed_cases.groupby("Country/Region").sum().sort_values(by=date, ascending=True).tail(5)
+    return countries.index.values[::-1].tolist()
 
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
@@ -70,4 +72,8 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     """
     
     # Your code goes here (remove pass)
-    pass
+    today=f"{month}/{day}/{year-2000}"
+    yesterday= (datetime.date(year, month, day)- datetime.timedelta(1)).strftime('%m/%d/%y').lstrip("0").replace("/0", "/")
+    ct=confirmed_cases[today]
+    cy=confirmed_cases[yesterday]
+    return int(sum(ct.values-cy.values!=0))
