@@ -43,7 +43,7 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     :param year: Month to get the countries for as an integer indexed from 1
     :return: A list of strings with the names of the coutires
     """
-  
+
     conf_by_date=confirmed_cases[["Province/State", "Country/Region", f"{month}/{day}/{year%100}"]].groupby("Country/Region").sum().sort_values(by=f"{month}/{day}/{year%100}",ascending=False)
     countries=conf_by_date.index[0:5].tolist()
     return countries
@@ -63,8 +63,8 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     :param year: Month to get the countries for as an integer indexed from 1
     :return: Number of countries/regions where the count has not changed in a day
     """
-
-  loc_date=confirmed_cases.columns.get_loc(f"{month}/{day}/{year%100}")
+    
+    loc_date=confirmed_cases.columns.get_loc(f"{month}/{day}/{year%100}")
     cs1=confirmed_cases[[confirmed_cases.columns[loc_date]]]
     cs2=confirmed_cases[[confirmed_cases.columns[loc_date-1]]]
     res=sum(cs1.values-cs2.values!=0)
