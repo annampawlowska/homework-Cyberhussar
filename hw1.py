@@ -1,5 +1,5 @@
 from typing import List
-
+import datetime
 import pandas as pd
 
 CONFIRMED_CASES_URL = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data" \
@@ -64,8 +64,6 @@ def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
     :return: Number of countries/regions where the count has not changed in a day
     """
     
-    loc_date=confirmed_cases.columns.get_loc(f"{month}/{day}/{year%100}")
-    cs1=confirmed_cases[[confirmed_cases.columns[loc_date]]]
-    cs2=confirmed_cases[[confirmed_cases.columns[loc_date-1]]]
-    res=sum(cs1.values-cs2.values!=0)
-    return res
+    today=f"{month}/{day}/{year-2000}"
+    yesterday= (datetime.date(year, month, day)- datetime.timedelta(1)).strftime('%#m/%#d/%y')
+    return len(confirmed_cases[confirmed_cases[today]-confirmed_cases[yesterday]!=0].index)
