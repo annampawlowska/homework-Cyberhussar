@@ -43,10 +43,10 @@ def top5_countries_by_date(day: int, month: int, year: int = 2020) -> List[str]:
     :param year: Month to get the countries for as an integer indexed from 1
     :return: A list of strings with the names of the coutires
     """
-
-    conf_by_date=confirmed_cases[["Province/State", "Country/Region", f"{month}/{day}/{year%100}"]].groupby("Country/Region").sum().sort_values(by=f"{month}/{day}/{year%100}",ascending=False)
-    countries=conf_by_date.index[0:5].tolist()
-    return countries
+  
+    date=f"{month}/{day}/{year%100}"
+    countrylist = confirmed_cases.groupby(["Country/Region"]).max().tail(5).sort_values(by=date,ascending=False)
+    return(countrylist["Country/Region"].tolist())
 
 # Function name is wrong, read the pydoc
 def no_new_cases_count(day: int, month: int, year: int = 2020) -> int:
